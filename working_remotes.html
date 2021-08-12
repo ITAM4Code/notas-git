@@ -1,0 +1,366 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Working with remotes - Notas de Pro Git</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_intro.html"><strong aria-hidden="true">1.</strong> ¿Qué es Git?</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="states.html"><strong aria-hidden="true">1.1.</strong> The Three States</a></li><li class="chapter-item expanded "><a href="basic_git_workflow.html"><strong aria-hidden="true">1.2.</strong> Basic Git Workflow</a></li><li class="chapter-item expanded "><a href="command_line_interface.html"><strong aria-hidden="true">1.3.</strong> Command Line Interface</a></li></ol></li><li class="chapter-item expanded "><a href="2_basico.html"><strong aria-hidden="true">2.</strong> Básicos de Git</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="repos.html"><strong aria-hidden="true">2.1.</strong> Getting a Git Repository</a></li><li class="chapter-item expanded "><a href="recording_changes.html"><strong aria-hidden="true">2.2.</strong> Recording changes</a></li><li class="chapter-item expanded "><a href="ignoring_files.html"><strong aria-hidden="true">2.3.</strong> Ignoring Files</a></li><li class="chapter-item expanded "><a href="staged_changes.html"><strong aria-hidden="true">2.4.</strong> Viewing Staged and Unstaged Changes</a></li><li class="chapter-item expanded "><a href="commiting_changes.html"><strong aria-hidden="true">2.5.</strong> Commiting your changes</a></li></ol></li><li class="chapter-item expanded "><a href="remove_files.html"><strong aria-hidden="true">3.</strong> Removing Files</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Commit_History.html"><strong aria-hidden="true">3.1.</strong> Viewing the Commit History</a></li><li class="chapter-item expanded "><a href="undoing_things.html"><strong aria-hidden="true">3.2.</strong> Undoing things</a></li><li class="chapter-item expanded "><a href="working_remotes.html" class="active"><strong aria-hidden="true">3.3.</strong> Working with remotes</a></li></ol></li><li class="chapter-item expanded "><a href="Git_Branching.html"><strong aria-hidden="true">4.</strong> Git Branching</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="branching_and_merging.html"><strong aria-hidden="true">4.1.</strong> Basic Branching and Merging</a></li><li class="chapter-item expanded "><a href="branching_Workflow.html"><strong aria-hidden="true">4.2.</strong> Branching Workflows</a></li><li class="chapter-item expanded "><a href="rebasing.html"><strong aria-hidden="true">4.3.</strong> Rebasing</a></li><li class="chapter-item expanded "><a href="distributed_Workflows.html"><strong aria-hidden="true">4.4.</strong> Distributed workflows</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Notas de Pro Git</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="working-with-remotes"><a class="header" href="#working-with-remotes">Working with remotes</a></h1>
+<p>Introducimos el concepto de un <em>Remote</em>. Un <em>remote</em> es una versión de
+tu Git Repo alojada en algún otro lugar, como el internet. Gracias a los
+<em>remotes</em> es que podemos colaborar en proyectos. Para recuperar cambios
+o para subir los propios usamos los comandos <code>pull</code>, <code>fetch</code> y <code>push</code>
+que dicutimos más adelante.</p>
+<p>Para listar los <em>remotes</em> que tiene un repo podemos usar el comando <code>git remote</code> sin argumentos. Si creaste un nuevo repo desde cero, <code>remote</code> no
+dará ningún resultado, porque aún no has configurado ningún <em>remote</em>
+para el repo actual. Si lo clonaste de algún lugar en internet el
+comando debería listar por lo menos un remote: <code>origin</code>, que es el
+nombre por defecto que recibe el <em>remote</em> original de donde fue clonado
+el repositorio local. El comando sin argumentos solo da los nombres con
+los cuales tiene guardados los <em>remotes</em>, lo cual no siempre es lo más
+útil. Corriendo <code>git remote -v</code> obtenemos una lista no solo de los
+<em>remotes</em> disponibles sino también el <span class="smallcaps">url</span>
+al que nos estamos comunicando para subir y bajar cambios[3].</p>
+<p>Como decíamos, clonar un repo automáticamente añade el origen como un
+<em>remote</em>, y lo nombra <code>origin</code> apropiadamente. Para añadir <em>remote</em>s
+nuevos se usa el comando <code>git remote add &lt;shortname&gt; &lt;url&gt;</code>. Por
+ejemplo, el <span class="smallcaps">url</span> que va entre corchetes es
+el <span class="smallcaps">url</span> de la página de GitHub en donde
+estará alojado el repo. Una vez que se tiene configurado un <em>remote</em> es
+fácil jalar o empujar cambios. El <code>shortname</code> que le asignaste al crear
+un <em>remote</em> es el nombre con el que será conocido desde ese momento, y
+con el cual te referirás para jalar o empujar cambios. Es decir, actúa
+como un alias para todo el <span class="smallcaps">url</span>.</p>
+<h3 id="pulling"><a class="header" href="#pulling">Pulling</a></h3>
+<p>Para jalar los cambios que están en el <em>remote</em>, existe el comando <code>git fetch &lt;remote&gt;</code>, que se traduce como “ir a buscar”, o “traer”. El
+<code>remote</code> entre corchetes es el nombre corto que se le asignó a el
+<em>remote</em> del cual se quiere hacer <em>fetch</em> al momento de configurarlo.
+Este comando baja la versión más reciente del repo disponible en el
+<em>remote</em>, pero <code>fetch</code> solo obtiene la versión más reciente y la
+almacena en una nueva rama[4], pero no incorpora los cambios a tu
+versión de los archivos. El estado de los archivos en tu <em>Working
+Directory</em> no se ve afectado por <code>fetch</code>, y para incorporar los cambios
+se tendría que hacer una unión (<em>merge</em>) entre la rama actual y la que
+se creó, lo cual discutiremos a detalle en la sección sobre ramas.
+Afortunadamente, el comando <code>git pull &lt;remote&gt; &lt;branch&gt;</code> ahorra el
+proceso de unir ramas, y además de bajar los cambios más recientes del
+<em>remote</em>, los combina automáticamente con el estado actual de los
+archivos en el <em>Working Directory</em>. Lo realmente interesante de Git está
+en lo que está escrito arriba: Git puede combinar cambios
+automáticamente y en la mayoría de los casos, sin ninguna clase de
+ayuda. Hablaremos más tarde de qué se hace cuando Git encuentra cambios
+conflictivos entre el estado de un archivo en el <em>Working Directory</em> y
+la versión en el <em>remote</em>.</p>
+<h3 id="pushing"><a class="header" href="#pushing">Pushing</a></h3>
+<p>Cuando deseas publicar tu versión del repo y el estado actual de los
+archivos rastreados, puedes usar el comando <code>git push &lt;remote&gt; &lt;branch&gt;</code>
+para <em>empujar</em> los cambios a el <code>remote</code> que se da como argumento, a la
+rama que se especifica también entre corchetes.</p>
+<p>Un detalle importante es que para hacer <em>push</em> a un <em>remote</em>, tu versión
+local debe estar al día con la versión más reciente en el <em>remote</em>. Si
+el <em>remote</em> tiene cambios más recientes a los que están en tu <em>Working
+Directory</em>, Git te pedirá que bajes los cambios del remoto y actualices
+tu versión a la que bajaste. Hasta entonces se puede hacer <em>push</em>.</p>
+<p>Cabe mencionar que no siempre se tiene permiso de hacer <em>push</em> a
+cualquier repositorio, se necesita que el dueño te de permiso.</p>
+<p>Cuando se tienen diferentes <em>origin</em>s a los que se empuja y jala
+regularmente, a veces es util pedir ayuda para recordar qué nombre corto
+está asociado a qué <span class="smallcaps">url</span>, entre otras
+cosas. El comando <code>git remote show &lt;remote&gt;</code> da más información acerca
+del <em>remote</em> asociado al nombre corto que se da como argumento.
+Dependiendo del caso de uso el comando puede dar mucha información. Por
+ahora no damos más detalles al respecto.</p>
+<p>También es posible cambiar el nombre corto de un <em>remote</em> después de
+haberlo configurado. Esto se hace con <code>git remote rename &lt;oldname&gt; &lt;newname&gt;</code>.</p>
+<p>Análogamente, es fácil remover remotos, como cuando ya no se utilizan
+más. Esto se hace mediante <code>git remote remove &lt;remote&gt;</code>.</p>
+<h3 id="tagging"><a class="header" href="#tagging">Tagging</a></h3>
+<p>Otra habilidad de Git es etiquetar (<em>tag</em>) <em>commit</em>s específicos; lo
+cual es muy util cuando hubo cambios importantes o ese commit particular
+está asociado a una versión importante o algo del estilo.</p>
+<p>Listar los <em>tags</em> existentes es fácil, se hace con <code>git tag</code>. Si no se
+ha etiquetado ningún <em>commit</em>, el comando no regresará nada. Cabe
+mencionar que el orden en el que se listan los resultados es alfabético,
+no cronológico.</p>
+<p>Un uso interesante es revisar una serie específica de versiones, por
+ejemplo, si se corre <code>git tag -l &quot;v1.8.5*&quot;</code> en el repositorio donde está
+alojado el código fuente de Git, podemos ver la serie de versiones
+1.8.5.(x).</p>
+<pre><code>$ git tag -l &quot;v1.8.5*&quot;
+  v1.8.5
+  v1.8.5-rc0
+  v1.8.5-rc1
+  v1.8.5-rc2
+  v1.8.5-rc3
+  v1.8.5.1
+  v1.8.5.2
+  v1.8.5.3
+  v1.8.5.4
+  v1.8.5.5
+</code></pre>
+<p>En este ejemplo, el <code>*</code> que se usa en el string después del switch <code>-l</code>
+(corto para <code>–list</code>) es un ejemplo de una expresión regular, y quiere
+decir “cualquier caracter”.</p>
+<p>Git permite dos tipos de <em>tags</em>: <em>lightweight</em> y <em>annotated</em>. El tipo
+<em>lightweight</em> es solo una referencia a un punto particular del historial
+de <em>commits</em>. Un <em>tag</em> del tipo <em>annotated</em> se guarda como su propio
+<em>commit</em>, y tiene toda la información que contendría uno, como la fecha,
+autor, etc… Por ejemplo, se puede crear una etiqueta anotada como</p>
+<pre><code>$ git tag -a v1.0 -m &quot;Version 1!&quot;
+</code></pre>
+<p>El swith <code>-a</code> es corto para <code>–annotated</code>.</p>
+<p>Para crear una etiqueta ligera, se usa el comando <code>tag</code> sin las opciones
+<code>-a</code> ni <code>-m</code>. Por ejemplo</p>
+<pre><code>$ git tag v1.0
+</code></pre>
+<p>Ahora puedes revisar la información del <em>commit</em> que fue etiquetado. Eso
+se hace con <code>git show &lt;tag&gt;</code>.</p>
+<p>También es posible etiquetar <em>commit</em>s que se hicieron en el pasado. Eso
+se hace con <code>git tag &lt;tag&gt; &lt;hash&gt;</code> en donde <code>hash</code> es el código de
+identificación corto que está asociado al checksum de un <em>commit</em>
+particular. Este <code>hash</code> sale por ejemplo al correr <code>git log</code> con sus
+posibles opciones.</p>
+<p>Por default Git no comparte los <em>tags</em> hechos localmente, se tiene que
+empujar mediante <code>push</code> como si fueran ramas independientes. Aún más
+facil que eso, se puede correr <code>git push &lt;remote&gt; –tags</code> para subir
+todos los <em>tags</em> al <em>remote</em> sin necesidad de hacerlo uno a uno. Cabe
+mencionar que el comando anterior empuja ambos tipos de <em>tags</em>: anotadas
+y ligeras.</p>
+<p>Para eliminar <em>tags</em> existe el flag <code>-d</code>, corto para <code>–delete</code>. Por
+ejemplo, si queremos eliminar el <em>tag</em> de ejemplo que hicimos arriba,
+corremos</p>
+<pre><code>$ git tag -d v1.0
+</code></pre>
+<p>Sin embargo, esto no va a eliminar las etiquetas del <em>remote</em> al que
+fueron subidas. Si se quiere eliminar también del remote, se usa</p>
+<pre><code>$ git push &lt;remote&gt; --delete &lt;tagname&gt;
+</code></pre>
+<p>Nota: Se pueden crear aliases para evitar escribir comandos largos con
+argumentos complejos.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="undoing_things.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="Git_Branching.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="undoing_things.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="Git_Branching.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
